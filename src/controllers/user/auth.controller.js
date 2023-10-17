@@ -7,6 +7,7 @@ const axios = require('axios');
 const status = require('../../utils/status.utils');
 const jwtService = require('../../service/jwt.service');
 const jwt = require('jsonwebtoken');
+const multer = require("multer");
 
 
 
@@ -155,6 +156,28 @@ exports.getUser = (req,res) =>
           });
         });
         // resolve({ success: true, status: status.Ok, msg: 'Success' });
+      
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+exports.uploadImage = (req,res) =>
+  new Promise(async (resolve, reject) => {
+    try {
+        
+      const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+          return cb(null, '/uploads')
+        },
+        filename: function (req, file, cb) {
+          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+         return  cb(null, file.fieldname + '-' + uniqueSuffix)
+        }
+      })
+      
+      const upload = multer({ storage: storage })
+      resolve({ success: true, status: status.Ok, msg: 'success'});
       
     } catch (error) {
       reject(error);
