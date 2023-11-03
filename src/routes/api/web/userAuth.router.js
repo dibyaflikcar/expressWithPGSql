@@ -10,6 +10,18 @@ const multer = require("multer");
 
 const router = express.Router();
 
+router.get('/all-user', async (req, res, next) => {
+  // return res.send("Hello");
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.send({ errors: errors.array(), success: false, status: status.BadRequest });
+  }
+  const response = await user
+    .allUser()
+    .catch((e) => res.send({ success: false, errors: [{ msg: e.message }], status: status.InternalServerError }));
+  return res.send(response);
+});
+
 router.post('/add-user', async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

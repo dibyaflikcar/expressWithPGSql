@@ -162,6 +162,36 @@ exports.getUser = (req,res) =>
     }
   });
 
+exports.allUser = (req,res) =>
+  new Promise(async (resolve, reject) => {
+    try {
+        db.user
+        .findAll({})
+        .then(async (user) => {
+          if (user) {
+                const result = user.dataValues;
+                // console.log(result);
+            resolve({ success: true, status: status.Ok, msg: 'success' ,data : user});
+          } else {
+            resolve({ success: false, status: status.BadRequest, msg: 'No data found!' });
+          }
+        })
+        .catch((e) => {
+          resolve({
+            success: false,
+            extra: e,
+            status: status.BadRequest,
+            errors: [{ msg: 'Something went wrong. Please try again .' }]
+          });
+        });
+        // resolve({ success: true, status: status.Ok, msg: 'Success' });
+      
+    } catch (error) {
+      reject(error);
+    }
+  });
+  
+
 exports.uploadImage = (req,res) =>
   new Promise(async (resolve, reject) => {
     try {

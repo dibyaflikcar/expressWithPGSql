@@ -6,7 +6,7 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 // Customer Model
-db.user = require('./user.model')(sequelize, Sequelize);
+db.user = require('./auth/user.model')(sequelize, Sequelize);
 
 
 // db.dealerVehicle.hasMany(db.testDrive, { foreignKey: 'vehicle_id', targetKey: 'id', foreignKeyConstraint: true });

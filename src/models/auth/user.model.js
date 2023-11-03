@@ -3,17 +3,17 @@ module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define(
       'User',
       {
-        id: {
+        ec_user_id: {
           type: Sequelize.INTEGER,
           primaryKey: true
         },
-        username: {
+        first_name: {
           type: Sequelize.STRING
         },
         email: {
             type: Sequelize.STRING
           },
-        password: {
+        ec_password: {
           type: Sequelize.STRING
         },
         createdAt: {
@@ -26,7 +26,7 @@ module.exports = (sequelize, Sequelize) => {
         }
       },
       {
-        tableName: 'user',
+        tableName: 'ec_users',
         timestamps: true
       }
     );
